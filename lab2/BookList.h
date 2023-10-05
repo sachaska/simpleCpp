@@ -23,6 +23,11 @@ public:
     // precondition: none
     // postcondition: head is deleted
 
+    long generate_isbn();
+    // ISBN generator
+    // precondition: none
+    // postcondition: return ISBN
+
     void add(string author, string title, string year, long isbn);
     // Add Node in BookList
     // precondition: none
