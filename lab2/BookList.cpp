@@ -6,6 +6,7 @@
 
 #include "BookList.h"
 #include <sstream>
+#include <random>
 
 BookList::BookList() {
     head = nullptr;
@@ -21,8 +22,8 @@ BookList::~BookList() {
 
 }
 
-void BookList::add(string author, string title, string year, long isbn) {
-    Node* newNode = new Node(author, title, year, isbn);
+void BookList::add(string author, string title, string year) {
+    Node* newNode = new Node(author, title, year, generate_isbn(MIN, MAX));
 
     if (isEmpty())
         head = newNode;
@@ -40,6 +41,14 @@ void BookList::add(string author, string title, string year, long isbn) {
 
 bool BookList::isEmpty() {
     return head == nullptr;
+}
+
+long BookList::generate_isbn(long min, long max) {
+    random_device rd;
+    mt19937 generator(rd());
+    uniform_int_distribution<long> distribution(min, max);
+    long isbn_number = distribution(generator);
+    return isbn_number;
 }
 
 int BookList::getSize() {

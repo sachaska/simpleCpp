@@ -23,12 +23,12 @@ public:
     // precondition: none
     // postcondition: head is deleted
 
-    long generate_isbn();
+    long generate_isbn(long, long);
     // ISBN generator
     // precondition: none
     // postcondition: return ISBN
 
-    void add(string author, string title, string year, long isbn);
+    void add(string author, string title, string year);
     // Add Node in BookList
     // precondition: none
     // postcondition: new Node is added to the tail of BookList
@@ -64,6 +64,7 @@ private:
     };
 
     Node *head;                 // head Node
+    const long MIN = 1000000000000, MAX = 9999999999999; // ISBN range
 };
 
 

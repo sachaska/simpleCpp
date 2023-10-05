@@ -10,22 +10,15 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <random>
 #include "BookList.h"
 
 using namespace std;
 
-bool readFile(BookList&, long, long);
+bool readFile(BookList&);
 // This function reads in file and populate data in BookList
 // IN: a BookList object, long variable for random range
 // MODIFY: add data to BookList object
 // OUT: returns a status refer to action successful or not
-
-long getIsbn(long, long);
-// This function generates random 13digts number as isbn
-// IN: two long variable for range
-// MODIFY: none
-// OUT: returns number that generated
 
 void print(BookList&);
 // This function prints data from BookList object with format
@@ -45,7 +38,7 @@ int main() {
     BookList *bookList;
     bookList = new BookList;      // BookList object
 
-    if (readFile(*bookList, MIN, MAX))
+    if (readFile(*bookList))
         print(*bookList);
 
     delete bookList;
@@ -67,7 +60,7 @@ string getFilePath() {
     return filepath;
 }
 
-bool readFile(BookList& book, long min, long max) {
+bool readFile(BookList& book) {
     ifstream inFile;
     inFile.open(getFilePath());
     string tempStr, author, title, year;
@@ -79,7 +72,7 @@ bool readFile(BookList& book, long min, long max) {
             getline(ss, author, ',');
             getline(ss, title, ','),
             getline(ss, year);
-            book.add(author, title, year, getIsbn(min, max));
+            book.add(author, title, year);
         }
 
     }
@@ -90,12 +83,4 @@ bool readFile(BookList& book, long min, long max) {
 
     inFile.close();
     return true;
-}
-
-long getIsbn(long min, long max) {
-    random_device rd;
-    mt19937 generator(rd());
-    uniform_int_distribution<long> distribution(min, max);
-    long isbn_number = distribution(generator);
-    return isbn_number;
 }
