@@ -9,38 +9,19 @@
 #include <random>
 
 BookList::BookList() {
-    head = nullptr;
+    list = new Book[DEFAULT];
 }
 
 BookList::~BookList() {
-    Node* element = head;
-    while (element) {
-        Node* temp = element;
-        element = element->next;
-        delete temp;
-    }
-
+    delete[] &list;
 }
 
 void BookList::add(string author, string title, string year) {
-    Node* newNode = new Node(author, title, year, generate_isbn(MIN, MAX));
-
-    if (isEmpty())
-        head = newNode;
-
-    else {
-        Node* element = head;
-
-        while (element->next)
-            element = element->next;
-
-        element->next = newNode;
-    }
-
+    Book* newBook = new Book(author, title, year, generate_isbn(MIN, MAX));
 }
 
 bool BookList::isEmpty() {
-    return head == nullptr;
+    return true;
 }
 
 long BookList::generate_isbn(long min, long max) {
@@ -56,40 +37,27 @@ int BookList::getSize() {
 
     if (isEmpty())
         return EMPTY;
-
-    else {
-        int size = 1;
-        Node* element = head;
-
-        while (element->next) {
-            size++;
-            element = element->next;
-        }
-
-        return size;
-    }
-
 }
 
-string BookList::to_string() {
-    stringstream ss;
-
-    if (isEmpty())
-        return ss.str();
-
-    else {
-        Node *element = head;
-        int count = 1;
-
-        do {
-            ss << count << ", " << element->author << ", " <<
-            element->title << ", " << element->year << endl;
-            element = element->next;
-            count++;
-        } while (element);
-
-    }
-
-    return ss.str();
-}
+//string BookList::to_string() {
+//    stringstream ss;
+//
+//    if (isEmpty())
+//        return ss.str();
+//
+//    else {
+//        Node *element = head;
+//        int count = 1;
+//
+//        do {
+//            ss << count << ", " << element->author << ", " <<
+//            element->title << ", " << element->year << endl;
+//            element = element->next;
+//            count++;
+//        } while (element);
+//
+//    }
+//
+//    return ss.str();
+//}
 

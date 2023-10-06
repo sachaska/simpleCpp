@@ -36,7 +36,7 @@ int main() {
     const long MIN = 1000000000000, MAX = 9999999999999;
                     // const variable for range
     BookList *bookList;
-    bookList = new BookList;      // BookList object
+    bookList = new BookList();      // BookList object
 
     if (readFile(*bookList))
         print(*bookList);

@@ -16,7 +16,7 @@ public:
     BookList();
     // Default constructor
     // precondition: none
-    // postcondition: head is assigned to nullptr
+    // postcondition: initialize the array
 
     ~BookList();
     // Default destructor
@@ -43,27 +43,25 @@ public:
     // precondition: none
     // postcondition: return size
 
+    void resize();
+
     string to_string();
     // Overwrite default to_string function
     // precondition: none
     // postcondition: return string contains contents of BookList and formant
 
 private:
-    struct Node {
+    struct Book {
         string author;          // the author of Book
         string title;           // the title of Book
         string year;            // the year of Book
         long isbn;              // the isbn number of Book
-        struct Node * next;     // pointer to next node
-
-        Node(string& a, string& t, string& y, long i) : author(a), title(t),
-                                                        year(y), isbn(i), next(nullptr){}
-        // Constructor
         // precondition: none
         // postcondition: node being created
     };
 
-    Node *head;                 // head Node
+    static const int DEFAULT = 20;                              // default size
+    Book* list;                // list of books
     const long MIN = 1000000000000, MAX = 9999999999999; // ISBN range
 };
 
