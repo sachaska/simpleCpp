@@ -33,8 +33,6 @@ string getFilePath();
 // OUT: a string contains user input
 
 int main() {
-    const long MIN = 1000000000000, MAX = 9999999999999;
-                    // const variable for range
     BookList *bookList;
     bookList = new BookList();      // BookList object
 
@@ -47,7 +45,7 @@ int main() {
 }
 
 void print(BookList& book) {
-    cout << "# of books: "<< book.getSize() << endl;
+    cout << "# of books: "<< book.getNumber() << endl;
     cout << endl;
     cout << book.to_string();
 }

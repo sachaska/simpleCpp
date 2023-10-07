@@ -23,29 +23,21 @@ public:
     // precondition: none
     // postcondition: head is deleted
 
-    long generate_isbn(long, long);
+    long generateIsbn(long, long);
     // ISBN generator
     // precondition: none
     // postcondition: return ISBN
 
-    void add(string author, string title, string year);
+    void add(const string&, const string&, const string&);
     // Add Node in BookList
     // precondition: none
     // postcondition: new Node is added to the tail of BookList
 
-    bool isEmpty();
-    // Check whether BookList is empty
-    // precondition: none
-    // postcondition: return empty status
+    bool isEmpty() const;
 
-    int getSize();
-    // Get LinkList size
-    // precondition: none
-    // postcondition: return size
+    int getNumber() const;
 
-    void resize();
-
-    string to_string();
+    string to_string() const;
     // Overwrite default to_string function
     // precondition: none
     // postcondition: return string contains contents of BookList and formant
@@ -59,9 +51,11 @@ private:
         // precondition: none
         // postcondition: node being created
     };
-
+    void resize();
+    int number;                                                 // index
+    int size;                                                   // size
     static const int DEFAULT = 20;                              // default size
-    Book* list;                // list of books
+    Book* list;                                                 // list of books
     const long MIN = 1000000000000, MAX = 9999999999999; // ISBN range
 };
 

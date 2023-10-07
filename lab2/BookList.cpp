@@ -5,59 +5,65 @@
 // print class to string and get size or empty status.
 
 #include "BookList.h"
-#include <sstream>
 #include <random>
+#include <iostream>
+#include <sstream>
 
 BookList::BookList() {
-    list = new Book[DEFAULT];
+    size = DEFAULT;
+    list = new Book[size];
+    number = 0;
 }
 
 BookList::~BookList() {
-    delete[] &list;
+    delete[] list;
 }
 
-void BookList::add(string author, string title, string year) {
-    Book* newBook = new Book(author, title, year, generate_isbn(MIN, MAX));
+int BookList::getNumber() const {
+    return number;
 }
 
-bool BookList::isEmpty() {
-    return true;
+void BookList::add(const string& author, const string& title, const string& year) {
+    number++;
+    if (number > size)
+        resize();
+    int index = number - 1;
+    list[index].author = author;
+    list[index].title = title;
+    list[index].year = year;
+    list[index].isbn = generateIsbn(MIN, MAX);
 }
 
-long BookList::generate_isbn(long min, long max) {
+bool BookList::isEmpty() const {
+    return number == 0;
+}
+
+void BookList::resize() {
+    size *= 2;
+    Book * newList = new Book[size];
+    for (int i = 0; i < number; i++) {
+        newList[i] = list[i];
+    }
+    delete[] list;
+    list = newList;
+}
+
+long BookList::generateIsbn(long min, long max) {
     random_device rd;
     mt19937 generator(rd());
     uniform_int_distribution<long> distribution(min, max);
-    long isbn_number = distribution(generator);
-    return isbn_number;
+    return distribution(generator);
 }
 
-int BookList::getSize() {
-    const int EMPTY = 0;
-
+string BookList::to_string() const {
+    stringstream ss;
     if (isEmpty())
-        return EMPTY;
+        return "";
+    else {
+        for (int i = 0; i < number; ++i) {
+            ss << i + 1 << ", " << list[i].author << ", " <<
+            list[i].title << ", " << list[i].year << endl;
+        }
+    }
+    return ss.str();
 }
-
-//string BookList::to_string() {
-//    stringstream ss;
-//
-//    if (isEmpty())
-//        return ss.str();
-//
-//    else {
-//        Node *element = head;
-//        int count = 1;
-//
-//        do {
-//            ss << count << ", " << element->author << ", " <<
-//            element->title << ", " << element->year << endl;
-//            element = element->next;
-//            count++;
-//        } while (element);
-//
-//    }
-//
-//    return ss.str();
-//}
-
